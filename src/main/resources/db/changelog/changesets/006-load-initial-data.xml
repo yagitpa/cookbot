@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="006-load-initial-data" author="dev" runOnChange="true">
+        <comment>Загрузка начальных тестовых данных</comment>
+
+        <!-- Ингредиенты -->
+        <insert tableName="ingredients">
+            <column name="name" value="яйца"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="мука"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="сахар"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="молоко"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="помидоры"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="сыр"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="курица"/>
+        </insert>
+        <insert tableName="ingredients">
+            <column name="name" value="лук"/>
+        </insert>
+
+        <!-- Рецепты -->
+        <insert tableName="recipes">
+            <column name="id" value="1"/>
+            <column name="title" value="Омлет с сыром"/>
+            <column name="description" value="Классический завтрак за 10 минут"/>
+            <column name="instructions" value="1. Взбить яйца. 2. Добавить сыр. 3. Жарить на сковороде."/>
+            <column name="image_url" value="https://example.com/omelet.jpg"/>
+            <column name="likes_count" value="5"/>
+            <column name="version" value="0"/>
+        </insert>
+
+        <insert tableName="recipes">
+            <column name="id" value="2"/>
+            <column name="title" value="Блины"/>
+            <column name="description" value="Тонкие блинчики на молоке"/>
+            <column name="instructions" value="1. Смешать муку, яйца, молоко. 2. Жарить на сковороде."/>
+            <column name="image_url" value="https://example.com/pancakes.jpg"/>
+            <column name="likes_count" value="12"/>
+            <column name="version" value="0"/>
+        </insert>
+
+        <insert tableName="recipes">
+            <column name="id" value="3"/>
+            <column name="title" value="Курица с овощами"/>
+            <column name="description" value="Запеченная курица в духовке"/>
+            <column name="instructions" value="1. Нарезать курицу. 2. Добавить овощи. 3. Запекать 40 минут."/>
+            <column name="image_url" value="https://example.com/chicken.jpg"/>
+            <column name="likes_count" value="8"/>
+            <column name="version" value="0"/>
+        </insert>
+
+        <!-- Связи рецепт-ингредиент -->
+        <!-- Омлет: яйца, сыр -->
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="1"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='яйца')"/>
+            <column name="quantity" value="3 шт"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="1"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='сыр')"/>
+            <column name="quantity" value="50 г"/>
+        </insert>
+
+        <!-- Блины: мука, яйца, молоко, сахар -->
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="2"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='мука')"/>
+            <column name="quantity" value="200 г"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="2"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='яйца')"/>
+            <column name="quantity" value="2 шт"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="2"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='молоко')"/>
+            <column name="quantity" value="500 мл"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="2"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='сахар')"/>
+            <column name="quantity" value="2 ст.л"/>
+        </insert>
+
+        <!-- Курица: курица, лук, помидоры -->
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="3"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='курица')"/>
+            <column name="quantity" value="500 г"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="3"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='лук')"/>
+            <column name="quantity" value="1 шт"/>
+        </insert>
+        <insert tableName="recipe_ingredients">
+            <column name="recipe_id" value="3"/>
+            <column name="ingredient_id" valueComputed="(SELECT id FROM ingredients WHERE name='помидоры')"/>
+            <column name="quantity" value="2 шт"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
