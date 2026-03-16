@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: cook-bot-app
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate # Liquibase управляет схемой
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+
+# Настройки бота (выносить в ENV переменные в prod)
+telegram:
+  bot:
+    token: ${TELEGRAM_BOT_TOKEN:default_token}
+    name: ${TELEGRAM_BOT_NAME:CookBot}
+
+# Настройки кэша
+cache:
+  caffeine:
+    spec: maximumSize=500,expireAfterWrite=10m
+
+# Actuator [IS23]
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
