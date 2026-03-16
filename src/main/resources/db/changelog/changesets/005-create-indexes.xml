@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="005-create-indexes" author="dev">
+        <comment>Создание индексов для оптимизации поиска</comment>
+
+        <!-- Индекс для поиска ингредиентов по имени (поиск по списку) -->
+        <createIndex tableName="ingredients" indexName="idx_ingredients_name">
+            <column name="name"/>
+        </createIndex>
+
+        <!-- Индекс для поиска рецептов по внешнему ID (импорт) -->
+        <createIndex tableName="recipes" indexName="idx_recipes_external_source">
+            <column name="external_id"/>
+            <column name="source_url"/>
+        </createIndex>
+
+        <!-- Индекс для сортировки по популярности -->
+        <createIndex tableName="recipes" indexName="idx_recipes_likes_count">
+            <column name="likes_count" descending="true"/>
+        </createIndex>
+
+        <!-- Индекс для быстрого поиска лайков пользователя -->
+        <createIndex tableName="user_likes" indexName="idx_user_likes_user">
+            <column name="telegram_user_id"/>
+        </createIndex>
+
+        <!-- Индекс для быстрого поиска рецептов с лайками -->
+        <createIndex tableName="user_likes" indexName="idx_user_likes_recipe">
+            <column name="recipe_id"/>
+        </createIndex>
+
+        <!-- Составной индекс для поиска рецептов по ингредиентам -->
+        <createIndex tableName="recipe_ingredients" indexName="idx_recipe_ingredients_lookup">
+            <column name="ingredient_id"/>
+            <column name="recipe_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

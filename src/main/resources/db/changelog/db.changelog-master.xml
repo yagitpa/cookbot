@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <include file="changesets/001-create-ingredients.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/002-create-recipes.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/003-create-recipe-ingredients.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/004-create-user-likes.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/005-create-indexes.xml" relativeToChangelogFile="true"/>
+    <include file="changesets/006-load-initial-data.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>
